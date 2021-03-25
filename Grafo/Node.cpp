@@ -120,8 +120,9 @@ void Node::removeAllEdges(){
 
         Edge* next = nullptr;
         Edge* aux = this->first_edge;
+        next = aux->getNextEdge();
         // Removing all edges of the node
-        while(aux != nullptr){
+        while(next != nullptr){
 
             next = aux->getNextEdge();
             delete aux;

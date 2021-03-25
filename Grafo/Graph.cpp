@@ -95,49 +95,81 @@ Node *Graph::getLastNode()
     This allows the correct updating of the numbers of edges in the graph being directed or not.
 */
 void Graph::insertNode(int id)
-{   
+{
     Node *novoNo = new Node(id);
 
-    if(this->first_node == nullptr){
+    if (this->first_node == nullptr)
+    {
 
         this->first_node = novoNo;
         this->last_node = novoNo;
+    }
+    else
+    {
 
-    }else{
-
-        if(this->searchNode(id) == false){
+        if (this->searchNode(id) == false)
+        {
             this->last_node->setNextNode(novoNo);
             this->last_node = novoNo;
         }
     }
-    
 }
 
 void Graph::insertEdge(int id, int target_id, float weight)
 {
+
     if (searchNode(id))
     {
         Node *node = getNode(id);
+
         node->insertEdge(target_id, weight);
     }
 }
 
-void Graph::removeNode(int id){ 
-    
-    if(this->first_node != nullptr){
-        if(this->searchNode(id)){
+void Graph::removeNode(int id)
+{
 
-            Node *atual = this->first_node;
-            Node *anterior = nullptr;
+    if (this->first_node != nullptr)
+    {
 
-            while( atual->getId() != id){
-                anterior = atual;
-                atual = atual->getNextNode();
+        if (this->searchNode(id))
+        {
+
+            if (this->first_node->getId() == id)
+            {
+
+                Node *atual = this->first_node;
+
+                atual->removeAllEdges();
+
+                this->first_node = atual->getNextNode();
+
+                delete atual;
             }
+            else
+            {
 
-            anterior->setNextNode(atual->getNextNode());
-            atual->removeAllEdges();
-            delete atual;
+                Node *atual = this->first_node;
+                Node *anterior = nullptr;
+
+                while (atual->getId() != id)
+                {
+                    anterior = atual;
+                    atual = atual->getNextNode();
+                }
+
+                anterior->setNextNode(atual->getNextNode());
+
+                if (this->last_node->getId() == id)
+                {
+
+                    this->last_node = anterior;
+                }
+
+                atual->removeAllEdges();
+
+                delete atual;
+            }
         }
     }
 }
@@ -149,22 +181,23 @@ bool Graph::searchNode(int id)
         Node *node = this->first_node;
         while (node->getNextNode() != nullptr)
         {
+
             if (node->getId() == id)
             {
                 return true;
             }
-            else
-            {
-                node = node->getNextNode();
-            }
+
+            node = node->getNextNode();
+        }
+        if (node->getId() == id)
+        {
+            return true;
         }
 
         return false;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 Node *Graph::getNode(int id)
@@ -179,45 +212,49 @@ Node *Graph::getNode(int id)
             {
                 return node;
             }
-            else
-            {
-                node = node->getNextNode();
-            }
+
+            node = node->getNextNode();
+        }
+        if (node->getId() == id)
+        {
+            return node;
         }
 
         return nullptr;
     }
+
+    return nullptr;
 }
 
 //Function that prints a set of edges belongs breadth tree
 
-void Graph::breadthFirstSearch(ofstream &output_file)
-{
-}
+// void Graph::breadthFirstSearch(ofstream &output_file)
+// {
+// }
 
-float Graph::floydMarshall(int idSource, int idTarget)
-{
-}
+// float Graph::floydMarshall(int idSource, int idTarget)
+// {
+// }
 
-float Graph::dijkstra(int idSource, int idTarget)
-{
-}
+// float Graph::dijkstra(int idSource, int idTarget)
+// {
+// }
 
-//function that prints a topological sorting
-void topologicalSorting()
-{
-}
+// //function that prints a topological sorting
+// void topologicalSorting()
+// {
+// }
 
-void breadthFirstSearch(ofstream &output_file)
-{
-}
-Graph *getVertexInduced(int *listIdNodes)
-{
-}
+// void breadthFirstSearch(ofstream &output_file)
+// {
+// }
+// Graph *getVertexInduced(int *listIdNodes)
+// {
+// }
 
-Graph *agmKuskal()
-{
-}
-Graph *agmPrim()
-{
-}
+// Graph *agmKuskal()
+// {
+// }
+// Graph *agmPrim()
+// {
+// }
