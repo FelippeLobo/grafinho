@@ -96,7 +96,21 @@ Node *Graph::getLastNode()
     This allows the correct updating of the numbers of edges in the graph being directed or not.
 */
 void Graph::insertNode(int id)
-{
+{   
+    Node *novoNo = new Node(id);
+
+    if(this->first_node == nullptr){
+
+        this->first_node = novoNo;
+        this->last_node = novoNo;
+
+    }else{
+
+        if(this->searchNode(id) == false){
+            this->last_node->setNextNode(novoNo);
+            this->last_node = novoNo;
+        }
+    }
     
 }
 
@@ -108,6 +122,22 @@ void Graph::insertEdge(int id, int target_id, float weight)
 
 void Graph::removeNode(int id){ 
     
+    if(this->first_node != nullptr){
+        if(this->searchNode(id)){
+
+            Node *atual = this->first_node;
+            Node *anterior = nullptr;
+
+            while( atual->getId() != id){
+                anterior = atual;
+                atual = atual->getNextNode();
+            }
+
+            anterior->setNextNode(atual->getNextNode());
+            atual->removeAllEdges();
+            delete atual;
+        }
+    }
 }
 
 bool Graph::searchNode(int id)
