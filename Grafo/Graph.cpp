@@ -77,7 +77,6 @@ bool Graph::getWeightedNode()
     return this->weighted_node;
 }
 
-
 Node *Graph::getFirstNode()
 {
 
@@ -97,64 +96,97 @@ Node *Graph::getLastNode()
 */
 void Graph::insertNode(int id)
 {
-    
 }
 
 void Graph::insertEdge(int id, int target_id, float weight)
 {
-
-    
+    if (searchNode(id))
+    {
+        Node *node = getNode(id);
+        node->insertEdge(target_id, weight);
+    }
 }
 
-void Graph::removeNode(int id){ 
-    
+void Graph::removeNode(int id)
+{
 }
 
 bool Graph::searchNode(int id)
 {
-    
+    if (this->first_node != nullptr)
+    {
+        Node *node = this->first_node;
+        while (node->getNextNode() != nullptr)
+        {
+            if (node->getId() == id)
+            {
+                return true;
+            }
+            else
+            {
+                node = node->getNextNode();
+            }
+        }
+
+        return false;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 Node *Graph::getNode(int id)
 {
+    if (searchNode(id))
+    {
+        Node *node = this->first_node;
 
-    
+        while (node->getNextNode() != nullptr)
+        {
+            if (node->getId() == id)
+            {
+                return node;
+            }
+            else
+            {
+                node = node->getNextNode();
+            }
+        }
+
+        return nullptr;
+    }
 }
-
 
 //Function that prints a set of edges belongs breadth tree
 
-void Graph::breadthFirstSearch(ofstream &output_file){
-    
+void Graph::breadthFirstSearch(ofstream &output_file)
+{
 }
 
-
-
-float Graph::floydMarshall(int idSource, int idTarget){
-    
+float Graph::floydMarshall(int idSource, int idTarget)
+{
 }
 
-   
-
-float Graph::dijkstra(int idSource, int idTarget){
-    
+float Graph::dijkstra(int idSource, int idTarget)
+{
 }
 
 //function that prints a topological sorting
-void topologicalSorting(){
-
+void topologicalSorting()
+{
 }
 
-void breadthFirstSearch(ofstream& output_file){
-
+void breadthFirstSearch(ofstream &output_file)
+{
 }
-Graph* getVertexInduced(int* listIdNodes){
-
+Graph *getVertexInduced(int *listIdNodes)
+{
 }
 
-Graph* agmKuskal(){
-
+Graph *agmKuskal()
+{
 }
-Graph* agmPrim(){
-
+Graph *agmPrim()
+{
 }
