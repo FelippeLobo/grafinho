@@ -22,6 +22,7 @@ class Graph{
         bool weighted_node;
         Node* first_node;
         Node* last_node;
+        list<list<int>> adjacencia;
 
     public:
         //Constructor
@@ -43,6 +44,8 @@ class Graph{
         void removeNode(int id);
         bool searchNode(int id);
         Node* getNode(int id);
+        void carregarListaAdjacencia();
+        void imprimeAdjacencias();
 
         //algoritmos 
         void topologicalSorting();

@@ -12,22 +12,24 @@
 
 int main()
 {
-    Graph *graph = new Graph(4, false, true, false);
-    
+    Graph *graph = new Graph(0, false, true, false);
+
+    graph->insertNode(0);
     graph->insertNode(1);
     graph->insertNode(2);
     graph->insertNode(3);
-    graph->insertNode(4);
 
-    graph->insertEdge(1,2,1);
-    graph->insertEdge(2,3,2);
-    graph->insertEdge(3,2,3);   
-    graph->insertEdge(4,1,4);
- 
-    graph->removeNode(4);
+    graph->insertEdge(0, 1, 1);
+    graph->insertEdge(1, 2, 2);
+    graph->insertEdge(2, 3, 3);
+    graph->insertEdge(3, 0, 4);
+    graph->insertEdge(2, 0, 4);
+    
+    //graph->removeNode(4);
 
-    cout << graph->getFirstNode()->getId() << endl;
-    cout << graph->getLastNode()->getId() << endl;
-    cout << graph->searchNode(4); 
-
+    graph->carregarListaAdjacencia();
+    graph->imprimeAdjacencias();
+    //cout << graph->getFirstNode()->getId() << endl;
+    //cout << graph->getLastNode()->getId() << endl;
+    //cout << graph->searchNode(4);
 }

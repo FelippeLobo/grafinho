@@ -28,6 +28,10 @@ Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node)
     this->weighted_node = weighted_node;
     this->first_node = this->last_node = nullptr;
     this->number_edges = 0;
+    for (size_t i = 0; i < order; i++)
+    {
+        insertNode(i);
+    }
 }
 
 // Destructor
@@ -113,11 +117,11 @@ void Graph::insertNode(int id)
             this->last_node = novoNo;
         }
     }
+    order++;
 }
 
 void Graph::insertEdge(int id, int target_id, float weight)
 {
-
     if (searchNode(id))
     {
         Node *node = getNode(id);
@@ -226,6 +230,50 @@ Node *Graph::getNode(int id)
     return nullptr;
 }
 
+void Graph::carregarListaAdjacencia()
+{
+
+    for (int i = 0; i < this->order; i++)
+    {
+        list<int> adjList;
+        adjacencia.push_back(adjList);
+    }
+
+    Node *node = this->first_node;
+
+    list<list<int>>::iterator it;
+    for (it = adjacencia.begin(); it != adjacencia.end() && node != nullptr; ++it)
+    {
+        Edge *edge = node->getFirstEdge();
+        
+        while (edge != nullptr)
+        {
+            it->push_back(edge->getTargetId());
+            edge = edge->getNextEdge();
+            
+        }
+        
+        node = node->getNextNode();
+    }
+}
+
+void Graph::imprimeAdjacencias()
+{
+    list<list<int>>::iterator l;
+    int j =0;
+    for (l = adjacencia.begin(); l != adjacencia.end(); ++l)
+    {
+        cout << j << " : ";
+       
+        list<int>::iterator i;
+        for (i = l->begin(); i != l->end(); ++i)
+        {
+            cout << *i << " // ";
+        }
+        cout << endl;
+        j++;
+    }
+}
 //Function that prints a set of edges belongs breadth tree
 
 // void Graph::breadthFirstSearch(ofstream &output_file)
