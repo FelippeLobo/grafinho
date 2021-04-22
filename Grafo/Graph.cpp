@@ -93,6 +93,12 @@ Node *Graph::getLastNode()
     return this->last_node;
 }
 
+list<list<int>> Graph::getListaAdjacencia()
+{
+
+    return this->adjacencia;
+}
+
 // Other methods
 /*
     The outdegree attribute of nodes is used as a counter for the number of edges in the graph.
@@ -245,14 +251,13 @@ void Graph::carregarListaAdjacencia()
     for (it = adjacencia.begin(); it != adjacencia.end() && node != nullptr; ++it)
     {
         Edge *edge = node->getFirstEdge();
-        
+
         while (edge != nullptr)
         {
             it->push_back(edge->getTargetId());
             edge = edge->getNextEdge();
-            
         }
-        
+
         node = node->getNextNode();
     }
 }
@@ -260,11 +265,11 @@ void Graph::carregarListaAdjacencia()
 void Graph::imprimeAdjacencias()
 {
     list<list<int>>::iterator l;
-    int j =0;
+    int j = 0;
     for (l = adjacencia.begin(); l != adjacencia.end(); ++l)
     {
         cout << j << " : ";
-       
+
         list<int>::iterator i;
         for (i = l->begin(); i != l->end(); ++i)
         {
@@ -273,6 +278,40 @@ void Graph::imprimeAdjacencias()
         cout << endl;
         j++;
     }
+}
+
+float Graph::verifyEdgeWeight(int sourceID, int targetID)
+{
+
+    if (searchNode(sourceID))
+    {
+        Node *node = getNode(sourceID);
+        if (node->hasEdgeBetween(targetID))
+        {
+            Edge *edge = node->getFirstEdge();
+
+            while (edge != nullptr)
+            {
+                if (edge->getTargetId() == targetID)
+                {
+                    return edge->getWeight();
+                }
+
+                edge = edge->getNextEdge();
+            }
+        }
+        else
+        {
+            cout << endl
+                 << "Error: doesn't exist edge between this nodes." << endl;
+        }
+    }
+    else
+    {
+        cout << endl
+             << "Error: that's node doesn't exist." << endl;
+    }
+    return -1;
 }
 //Function that prints a set of edges belongs breadth tree
 

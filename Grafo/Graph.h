@@ -37,7 +37,7 @@ class Graph{
         bool getWeightedNode();
         Node* getFirstNode();
         Node* getLastNode();
-
+        list<list<int>> getListaAdjacencia();
         //prioridade
         void insertNode(int id);
         void insertEdge(int id, int target_id, float weight);
@@ -46,6 +46,7 @@ class Graph{
         Node* getNode(int id);
         void carregarListaAdjacencia();
         void imprimeAdjacencias();
+        float verifyEdgeWeight(int sourceID, int targetID);
 
         //algoritmos 
         void topologicalSorting();
